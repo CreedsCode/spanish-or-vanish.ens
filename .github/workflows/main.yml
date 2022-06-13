@@ -1,0 +1,21 @@
+name: Deployment
+on:
+  push:
+    branches:
+      - master
+jobs:
+  sync:
+    name: Verify and sync data to IPFS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Sync to IPFS
+        id: upload
+        uses: nymmrx/ipfs-deploy@master
+        with:
+          path: "./"
+          pin-name: idk_i_just_deploy_here
+          pinata-key: ${{ secrets.PINATA_KEY }}
+          pinata-secret: ${{ secrets.PINATA_SECRET }}
